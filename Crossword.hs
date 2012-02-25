@@ -9,10 +9,29 @@ module Crossword where
 import System.Random
 import WordScore
 
-type Grid = [String]
+type Grid    = [String]
+type Point   = (Int, Int)
+type IOPoint = (IO Int, IO Int)
 
-emptyGrid :: Int -> Int -> Grid
+emptyGrid     :: Int -> Int -> Grid
 emptyGrid  x y = replicate y [ s | s <- (replicate x '#') ] 
 
-insertAWord :: Grid -> String -> Grid
-insertAWord g s = (s ++ (drop (length s)) (head g)) : (tail g)
+insertAWord          :: Grid -> String -> Point -> Grid
+insertAWord g s (x,y) = take y g ++ ((take x (g !! y)) 
+                                 ++ s 
+                                 ++ (drop (length s + x)) (g !! y)) 
+                                  : (drop y g)
+
+insertDWord           :: Grid -> String -> Point -> Grid
+insertDWord g s (x,y) = take y g 
+                        ++ (map (\c -> (take x (g !! snd c)) 
+                        ++ (fst c) : drop (x + 1) (g !! snd c)) (zip s [y..])) 
+                        ++ drop (length s + y) g
+
+randomPoint  :: Grid -> IOPoint 
+randomPoint g = (randomRIO (0, 1 - length (head g)),
+                 randomRIO (0, 1 - length g))
+
+getCenter  :: Grid -> Point
+getCenter g = ((length (head g) - 1) `div` 2, (length g - 1)`div` 2)
+
