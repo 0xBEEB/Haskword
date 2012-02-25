@@ -28,6 +28,13 @@ insertDWord g s (x,y) = take y g
                         ++ (fst c) : drop (x + 1) (g !! snd c)) (zip s [y..])) 
                         ++ drop (length s + y) g
 
+insertSWWord           :: Grid -> String -> Point -> Grid
+insertSWWord g s (x,y) = take y g 
+                        ++ (map (\c -> (take (x + snd c) (g !! snd c)) 
+                           ++ (fst c) : drop (x + (snd c) + 1) (g !! snd c)) 
+                           (zip s [y..])) 
+                        ++ drop (length s + y) g
+
 randomPoint  :: Grid -> IOPoint 
 randomPoint g = (randomRIO (0, 1 - length (head g)),
                  randomRIO (0, 1 - length g))
