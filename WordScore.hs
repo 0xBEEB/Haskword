@@ -8,6 +8,7 @@ module WordScore where
 
 import Data.List (sortBy)
 import Data.Ord (comparing)
+import Char (toUpper)
 
 scoreWord          :: String -> String -> Integer
 scoreWord [] ss     = 0
@@ -19,3 +20,6 @@ listScore ss = map (\x -> (scoreWord x (concat ss)) - (scoreWord x x)) ss
 rankWords    :: [String] -> [String]
 rankWords  ss = reverse $ map snd $ 
                   sortBy (comparing fst) (zip (listScore ss) ss)
+
+allCaps :: [String] -> [String]
+allCaps  = (map . map) toUpper
