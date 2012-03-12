@@ -4,47 +4,60 @@
  - Takes a list of strings and scores the intersection value of the words.
 -}
 
-module Crossword where
+module WordSearch where
 
 import System.Random
-import WordScore
 
-type Grid    = [String]
-type Point   = (Int, Int)
-type IOPoint = (IO Int, IO Int)
+type Grid  = [String]
+type Point = (Int, Int)
 
 emptyGrid     :: Int -> Int -> Grid
 emptyGrid  x y = replicate y [ s | s <- (replicate x '#') ] 
 
-emptyIOGrid    :: Int -> Int -> IO Grid
-emptyIOGrid x y = do return (emptyGrid x y)
+pick   :: [a] -> IO a
+pick xs = randomRIO (0, (length xs - 1)) >>= return . (xs !!)
 
-displayGrid  :: IO Grid -> IO ()
-displayGrid g = do grid <- g
-                   putStr (unlines grid)
 
-insertWord    :: IO Grid -> String -> IO Grid
-insertWord g w = do method <- randomWay
-                    grid <- g
-                    x <- randomRIO (0, length (head grid) - 1)
-                    y <- randomRIO (0, length grid - 1)
-                    if (fst method) grid w (x,y)
-                      then return $ ((snd method) grid w (x,y))
-                      else insertWord g w
+displayGrid     :: IO Grid -> [String] -> IO ()
+displayGrid g ws = do grid <- g
+                      filledGrid <- fillGrid ws grid
+                      putStr (unlines filledGrid)
+                      putStrLn ("+++++")
+                      mapM (\w -> putStr (w ++ "    ")) ws
+                      putStrLn ""
+                      putStrLn ("+++++")
+                      putStr (unlines grid)
 
-insertWords         :: IO Grid -> [String] -> IO Grid
-insertWords g []     = g
-insertWords g (x:xs) = insertWords (insertWord g x) xs
+replaceHash     :: [String] -> Char -> IO Char
+replaceHash ws c = if c == '#' then do r <- pick (concat ws)
+                                       return r
+                               else return c
+
+fillLine     :: [String] -> String -> IO String
+fillLine ws l = mapM (replaceHash ws) l
+
+fillGrid     :: [String] -> Grid -> IO Grid
+fillGrid ws g = mapM (fillLine ws) g
 
 waysToInsert = [(fitsA, insertAWord), (fitsAR, insertAWordR),
                 (fitsD, insertDWord), (fitsDR, insertDWordR),
                 (fitsSW1, insertSWWord1), (fitsSW1R, insertSWWord1R),
                 (fitsSW2, insertSWWord2), (fitsSW2R, insertSWWord2R)]
 
-pick :: [a] -> IO a
-pick xs = randomRIO (0, (length xs - 1)) >>= return . (xs !!)
-
 randomWay = pick waysToInsert
+
+insertWord       :: Grid -> String -> IO Grid
+insertWord grid w = do method <- randomWay
+                       x <- randomRIO (0, length (head grid) - 1)
+                       y <- randomRIO (0, length grid - 1)
+                       if (fst method) grid w (x,y)
+                         then return $ ((snd method) grid w (x,y))
+                         else insertWord grid w
+
+insertWords         :: Grid -> [String] -> IO Grid
+insertWords g []     = return g
+insertWords g (x:xs) = do newGrid <- insertWord g x
+                          insertWords newGrid xs
 
 insertAWord          :: Grid -> String -> Point -> Grid
 insertAWord g s (x,y) = take y g ++ ((take x (g !! y)) 
@@ -115,11 +128,3 @@ insertSWWord2R g s (x,y) = insertSWWord2 g (reverse s) (x,y)
 
 fitsSW2R          :: Grid -> String -> Point -> Bool
 fitsSW2R g s (x,y) = fitsSW2 g (reverse s) (x,y)
-
-randomPoint  :: Grid -> IOPoint 
-randomPoint g = (randomRIO (0, 1 - length (head g)),
-                 randomRIO (0, 1 - length g))
-
-getCenter  :: Grid -> Point
-getCenter g = ((length (head g) - 1) `div` 2, (length g - 1)`div` 2)
-

@@ -1,0 +1,662 @@
+\documentclass[12pt]{report}   % list options between brackets
+\usepackage{cwpuzzle}              % list packages between braces
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{sidecap}
+
+\lstset{ %
+        language=Haskell,
+        basicstyle=\footnotesize,
+        frame=single}
+
+% type user-defined commands here
+
+\begin{document}
+
+\title{Haskword: Generating Word Searches}   % type title between braces
+\author{Thomas Schreiber}         % type author(s) between braces
+\date{March 20, 2012}    % type date between braces
+
+\begin{minipage}[h]{\textwidth}
+  \maketitle
+
+  \vspace{12pt}
+
+  \begin{Puzzle}{14}{14}%
+        |[][S]R |[][S]A |[][S]S |[][S]H |[][S]E |[][S]L |[][S]P |[][S]S |[][S]L |[][S]M |[][S]N |[][S]C |[][S]D |[][S]L |.
+        |[][S]N |[][S]C |[][S]R |[][S]H |[][S]A |[][S]S |[][S]K |[][S]E |[][S]L |[][S]L |[][S]R |[][S]T |[][S]S |[][S]A |.
+        |[][S]H |[][S]H |[][S]L |[][S]U |[][S]N |[][S]N |[][S]R |[][S]C |[][S]A |[][S]L |[][S]U |[][S]N |[][S]L |[][S]A |.
+        |[][S]U |[][S]E |[][S]M |[][S]U |[][S]R |[][S]L |[][S]R |[][S]P |[][S]F |[][S]R |[][S]E |[][S]I |[][S]T |[][S]U |.
+        |[][S]C |[][S]D |[][S]M |[][S]N |[][S]A |[][S]O |[][S]L |[][S]S |[][S]I |[][S]E |[][S]S |[][S]N |[][S]A |[][S]A |.
+        |[][S]E |[][S]C |[][S]Y |[][S]N |[][S]T |[][S]C |[][S]U |[][S]R |[][S]I |[][S]P |[][S]A |[][S]M |[][S]U |[][S]T |.
+        |[][S]L |[][S]R |[][S]R |[][S]C |[][S]C |[][S]I |[][S]U |[][S]P |[][S]G |[][S]N |[][S]A |[][S]L |[][S]R |[][S]E |.
+        |[][S]D |[][S]A |[][S]N |[][S]O |[][S]M |[][S]T |[][S]A |[][S]R |[][S]F |[][S]S |[][S]L |[][S]R |[][S]A |[][S]L |.
+        |[][S]N |[][S]U |[][S]E |[][S]R |[][S]E |[][S]F |[][S]N |[][S]U |[][S]R |[][S]C |[][S]I |[][S]M |[][S]K |[][S]K |.
+        |[][S]F |[][S]T |[][S]H |[][S]A |[][S]T |[][S]S |[][S]E |[][S]I |[][S]F |[][S]Y |[][S]R |[][S]A |[][S]S |[][S]L |.
+        |[][S]L |[][S]L |[][S]A |[][S]N |[][S]O |[][S]I |[][S]T |[][S]C |[][S]N |[][S]U |[][S]F |[][S]L |[][S]C |[][S]L |.
+        |[][S]K |[][S]Y |[][S]C |[][S]A |[][S]C |[][S]G |[][S]A |[][S]S |[][S]L |[][S]H |[][S]H |[][S]R |[][S]S |[][S]E |.
+        |[][S]S |[][S]L |[][S]T |[][S]L |[][S]E |[][S]P |[][S]T |[][S]S |[][S]I |[][S]L |[][S]N |[][S]P |[][S]L |[][S]L |.
+        |[][S]C |[][S]L |[][S]T |[][S]T |[][S]R |[][S]S |[][S]C |[][S]H |[][S]E |[][S]M |[][S]E |[][S]I |[][S]F |[][S]I |.
+  \end{Puzzle}
+\end{minipage}
+
+\begin{abstract}
+    A word search generator was constructed using Haskell for CS 457,
+    Functional Programming, by Thomas Schreiber as his term project. Word 
+    puzzles are interesting problems to solve using a functional language, and 
+    in many ways functional programming is clearer in its solutions for these 
+    types of programming challenges. This word search generator, Haskword, 
+    takes a list of words and generates a dynamic word search puzzle. A lot of 
+    research also went into IO, randomness, and randomized algorithms.
+
+  \vspace{36pt}
+
+  \begin{Puzzle}{14}{14}%
+        |[][S]R |[][S]A |[][S]S |[][S]H |[][S]E |[][S]L |[][S]P |[][S]S |[][S]L |[][S]M |[][S]N |[][S]C |[][S]D |[][S]L |.
+        |[][S]N |[][S]C |[][S]R |[][SO]H |[][SO]A |[][SO]S |[][SO]K |[][SO]E |[][SO]L |[][SO]L |[][S]R |[][S]T |[][S]S |[][S]A |.
+        |[][S]H |[][S]H |[][S]L |[][S]U |[][S]N |[][S]N |[][S]R |[][S]C |[][S]A |[][S]L |[][S]U |[][S]N |[][SO]L |[][S]A |.
+        |[][S]U |[][S]E |[][S]M |[][S]U |[][S]R |[][S]L |[][SO]R |[][S]P |[][S]F |[][S]R |[][S]E |[][SO]I |[][S]T |[][S]U |.
+        |[][S]C |[][S]D |[][S]M |[][S]N |[][S]A |[][SO]O |[][S]L |[][S]S |[][S]I |[][S]E |[][SO]S |[][S]N |[][S]A |[][S]A |.
+        |[][S]E |[][S]C |[][S]Y |[][S]N |[][SO]T |[][SO]C |[][S]U |[][S]R |[][S]I |[][SO]P |[][S]A |[][S]M |[][S]U |[][S]T |.
+        |[][S]L |[][S]R |[][S]R |[][SO]C |[][S]C |[][S]I |[][SO]U |[][S]P |[][SO]G |[][SO]N |[][SO]A |[][SO]L |[][SO]R |[][SO]E |.
+        |[][SO]D |[][SO]A |[][SO]N |[][SO]O |[][SO]M |[][S]T |[][S]A |[][SO]R |[][S]F |[][S]S |[][S]L |[][S]R |[][S]A |[][S]L |.
+        |[][S]N |[][SO]U |[][S]E |[][S]R |[][S]E |[][S]F |[][S]N |[][S]U |[][SO]R |[][S]C |[][S]I |[][S]M |[][S]K |[][S]K |.
+        |[][SO]F |[][S]T |[][S]H |[][S]A |[][S]T |[][S]S |[][S]E |[][S]I |[][S]F |[][SO]Y |[][S]R |[][S]A |[][S]S |[][S]L |.
+        |[][S]L |[][SO]L |[][SO]A |[][SO]N |[][SO]O |[][SO]I |[][SO]T |[][SO]C |[][SO]N |[][SO]U |[][SO]F |[][S]L |[][S]C |[][S]L |.
+        |[][S]K |[][S]Y |[][S]C |[][S]A |[][S]C |[][S]G |[][S]A |[][S]S |[][S]L |[][S]H |[][S]H |[][S]R |[][S]S |[][S]E |.
+        |[][S]S |[][S]L |[][S]T |[][S]L |[][S]E |[][S]P |[][SO]T |[][SO]S |[][SO]I |[][SO]L |[][S]N |[][S]P |[][S]L |[][S]L |.
+        |[][S]C |[][S]L |[][S]T |[][S]T |[][S]R |[][SO]S |[][SO]C |[][SO]H |[][SO]E |[][SO]M |[][SO]E |[][S]I |[][S]F |[][S]I |.
+  \end{Puzzle}
+\end{abstract}
+
+\chapter*{Word Puzzles}     % section 1.1
+    
+\section*{Problem Description}       % subsection 1.1.1
+
+    \ \ \ \ \ Word search puzzles (also known as word finds, word slueths, word seeks,
+    and mystery words) are puzzles in which you are presented a grid of letters
+    and instructed to find words placed inside the grid. The words could be
+    placed left to right, right to left, vertically in either direction, or
+    any of the four diagnals. These puzzles orginated in a Safeway grocery
+    circular in the late 1960's where they were noticed as a vocabulary
+    teaching aid and a new puzzle mediam to be syndicated. \cite{wiki}
+    \cite{justws}
+
+    \vspace{12pt}
+
+    \begin{SCfigure}
+        \begin{Puzzle}{7}{7}
+            |[][S]O |[][S]E |[][S]L |[][S]H |[][S]L |[][S]S |[][S]E |.
+            |[][S]K |[][S]S |[][S]R |[][S]H |[][S]O |[][S]S |[][S]A |.
+            |[][S]O |[][S]E |[][S]O |[][S]A |[][S]E |[][S]M |[][S]B |.
+            |[][S]O |[][S]S |[][S]O |[][S]E |[][S]L |[][S]B |[][S]O |.
+            |[][S]B |[][S]U |[][S]B |[][S]L |[][S]A |[][S]O |[][S]L |.
+            |[][S]O |[][S]O |[][S]O |[][S]H |[][S]U |[][S]M |[][S]M |.
+            |[][S]R |[][S]H |[][S]E |[][S]A |[][S]S |[][S]B |[][S]E |.
+        \end{Puzzle}
+        \caption{A simple word puzzle, similar to those found in childeren's
+                 books, that contains the hidden words: BOOK, BEES, MOLAR, and
+                 HOUSE.}
+    \end{SCfigure}
+
+    A good word search puzzle has the following characteristics:
+
+    \begin{itemize}
+        \item It contains non-trivial words
+        \item Words are dispursed equally around the grid
+        \item Words can intersect other words
+        \item Words are placed in many different directions
+        \item Filler characters are similar to hidden words
+    \end{itemize}
+
+    A puzzle that has these attributes will be challenging for the solver. They
+    will be required to search through the entirety of the grid, while cheking
+    in every direction, for words that not only are non-trivial, but are 
+    hidden among similar characters and partial substrings of the very words
+    the solver is looking for. Also, as the words are solved the used letters
+    cannot be ruled out as they could be used in other needed words. All of
+    these characteristics make a word search much harder to solve, and we want
+    to create a challenge.
+
+
+\section*{Word Search vs Crossword}
+    \ \ \ \ \ Originally, generating crossword puzzles were one of the goals of
+    this project. Crossword puzzles are similar to word searches in a few ways
+    including: across and down word placement, word intersections, and a square
+    letter grid. However, crossword puzzles are quite different from word
+    searches in many other ways. For example, if two words are place parallel
+    and in adjacent rows then every cross section of the two words must also be
+    a word. In a crossword the position of the first character of every word
+    needs to be stored and later labeled. Also, the number of intersections
+    needed to make an interesting crossword puzzle needs to be very high. All
+    of these factors make generating an interesting crossword very complex and
+    processing intensive. For these reasons I decided to focus on generating
+    quality word searches for this project.
+
+    \begin{figure}[h!]
+        \begin{Puzzle}{7}{7}
+            |[1][f]O |[][f]E |[][f]L |[2][f]H |[][*]L |[3][f]S |[][*]E |.
+            |[][f]K |[][*]S |[][*]R |[4][f]H |[][f]O |[][f]S |[][f]A |.
+            |[5][f]O |[6][f]E |[7][f]O |[][f]A |[][*]E |[][f]M |[][*]B |.
+            |[][*]O |[8][f]S |[][f]O |[][*]E |[][*]L |[9][f]B |[][f]O |.
+            |[10][f]B |[][f]U |[][f]B |[11][f]L |[][f]A |[][f]O |[][*]L |.
+            |[][f]O |[][*]O |[][*]O |[][f]H |[][*]U |[][f]M |[][*]M |.
+            |[][f]R |[][*]H |[12][f]E |[][f]A |[][f]S |[][f]B |[][f]E |.
+        \end{Puzzle}
+        \caption{A simple crossword puzzle.}
+    \end{figure}
+
+
+\section*{Deliverables}
+    \ \ \ \ \ The finished product of this project will be directed at a user
+    who wants to create word searches with a specific set of words. A common
+    use case for this software could be generating vocabulary sets for grade 
+    school classes. The user of the software would be the class teacher, and a
+    number of students would be assigned to solve the puzzles.
+
+    \vspace{12pt}
+
+    So, at completion of this project the software will be able to take a list
+    of between one and thirty words of various length, and output a quality
+    word search. As this is used in a teaching environment generating unique
+    random word searches for each student based off of the same word list would
+    be a useful feature. It would also be helpful to output word search 
+    solutions and the word list for each puzzle. The output should be good 
+    looking and easy to print. The puzzle generation should run in a reasonable
+    amount of time. If all of these conditions are met this project will be a
+    reasonable word search generator.
+
+\chapter*{Implementation}     % section 2.1
+
+\section*{Data Structures}         % subsection 2.1.1
+    \ \ \ \ \ We are now ready to begin to write the Haskell code for this
+    project. A word search has a number of different components that we will
+    need to use data structures to represent. There is the list of words that
+    will be input, a grid of characters, and substrings of the grid that
+    represent a way to place a word in one of the eight directions. Having a
+    synonym for the points in the grid to insert words will also be helpful.
+
+    \vspace{12pt}
+
+    \begin{lstlisting}    
+module Wordsearch where
+
+import System.Random
+
+type Grid    = [String]
+type Point   = (Int, Int)
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    A word search grid is represented as a list of lines, and a line is 
+    nothing more than a String. The list of words makes a lot of sense as a 
+    list of Strings as well. We also declare the type Point as shorthand for
+    a pair of Ints. This leaves only the substrings hidden in a grid, and these
+    will need to be stored as a collection of characters. Most of the time it
+    will be clearer to deal with these substrings inside of the functions
+    that interact with the grid itself.
+
+    \vspace{12pt}
+
+    Each character in the grid can be in one of two states. It can be filled or
+    empty. If a space in the grid is taken by a character in one of the words
+    that were input then that space is in the 'filled' state. Otherwise, the
+    space is in the 'empty' state. Word searches work best with only capital
+    letters. So, an octothorpe is used as to indicate that a character is in
+    an 'empty' state.
+
+    \vspace{12pt}
+
+    One task that we will need to do is create a new grid of a given size. This
+    grid will have all characters in the 'empty' state.
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+emptyGrid     :: Int -> Int -> Grid
+emptyGrid  x y = replicate y [s | s <- (replicate x '#')] 
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    We will also need to be able to display the contents of a grid:
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+displayGrid :: Grid -> IO ()
+displayGrid  = putStr . unlines
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    With just the few type synonyms listed above the word search components can
+    now be used. In this way the built-in types in Haskell (specifically
+    Strings and lists) are very well suited to the problem of generating word
+    searches. As Strings are just lists of characters we will be able to take
+    advantage of a lot of the built-in functions that operate on lists as we
+    write the rest of the implementation of this project.
+
+\section*{Word Insertion}
+    \ \ \ \ \ Now that we can generate an empty grid we need to add words to
+    it. The most basic way to add a word is forward and across. We want to add
+    a word at a given point in the grid.
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+insertAWord          :: Grid -> String -> Point -> Grid
+insertAWord g s (x,y) = take y g ++ ((take x (g !! y)) 
+                                 ++ s 
+                                 ++ (drop (length s + x)) (g !! y)) 
+                                  : (drop (y+1) g)
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    The function insertAWord takes a Grid, String, and Point as input. Then the
+    String, s, is added to the grid at point (x,y). This is accomplished by
+    taking all of the lines of the input grid that will not contain the line
+    that s is being inserted into. These lines are concatonated onto a line
+    composed of the characters that come before s, s, and the characters that
+    come after s on that line. Finall, we concatonate all of the lines after
+    the line that we added s to. This creates a new Grid that now has s
+    inserted at the correct spot.
+
+    \vspace{12pt}
+
+\begin{lstlisting}
+*Wordsearch> displayGrid $ insertAWord (emptyGrid 10 8) "HELLO" (3,3)
+##########
+##########
+##########
+###HELLO##
+##########
+##########
+##########
+##########
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    The next function that needs to be implemented will be used to insert words
+    vertically down.
+
+    \vspace{12pt}
+    \pagebreak
+
+    \begin{lstlisting}
+insertDWord          :: Grid -> String -> Point -> Grid
+insertDWord g s (x,y) = take y g 
+                        ++ (map (\c -> (take x (g !! snd c)) 
+                        ++ (fst c) : drop (x + 1) (g !! snd c)) (zip s [y..])) 
+                        ++ drop (length s + y) g
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    This function is similar to insertAWord. However, insertDWord operates on a
+    list of lines. one character is replaced in each line with the correct 
+    character from the string s. We can now add a word vertically to a grid, 
+    even a grid that already has a word in it.
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+*Wordsearch> let hello = insertAWord (emptyGrid 10 8) "HELLO" (3,3)
+*Wordsearch> displayGrid $ insertDWord hello "WORLD" (7,2)
+##########
+##########
+#######W##
+###HELLO##
+#######R##
+#######L##
+#######D##
+##########
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    Of course we will want to combine the two functions, insertAWord and 
+    insertDWord, into a function that will insert words sideways.
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+insertSWWord1          :: Grid -> String -> Point -> Grid
+insertSWWord1 g s (x,y) = take y g 
+                        ++ (map (\c -> (take (x + snd c - y) (g !! snd c)) 
+                        ++ (fst c) : drop (x + (snd c) + 1 - y) (g !! snd c)) 
+                           (zip s [y..])) 
+                        ++ drop (length s + y) g
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    While insertSWWord1 can seem a bit more complicated than insertAWord or 
+    insertDWord, but it works in a very similar way. We are still taking the
+    lines that appear above where the word will be inserted. Then, operating
+    on the lines from the point of insertion to the length of the word s. Now,
+    there is a difference though, because we also must increment the x
+    position after each character is added so that the string, s, is inserted
+    diagnally. A lambda function is used to insert the correct letter in the 
+    correct line at the correct position. The insertion point of each character 
+    is incremented by one line and one position to the right inside of each 
+    line.
+
+    \vspace{12pt}
+    \pagebreak
+
+    \begin{lstlisting}
+*Wordsearch> let helloworld = insertDWord hello "WORLD" (7,2) 
+*Wordsearch> rawDisplay $ insertSWWord1 helloworld "HASKELL" (0,1)
+##########
+H#########
+#A#####W##
+##SHELLO##
+###K###R##
+####E##L##
+#####L#D##
+######L###
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    We can derive the remaining 5 ways to insert words (horizontally-backwards,
+    vertically-up, diagnally-up-left-to-right, diagnally-up-right-to-left, and
+    diagnally-down-right-to-left) by taking advantage of the Haskell prelude
+    function reverse. With various combinations of reversing the input string
+    and reversing the lines of the grid all of the remaining ways to add words
+    to a grid are trivial to write.
+
+    \vspace{12pt}
+
+    If we carefully plan out a word search the insertion functions can now be
+    used to place them into a grid. For the purposes of this program though we
+    need to be able to check if the word fits within the bounds of the grid,
+    and we also need to be able to prevent clobbering letters on the board
+    that are part of previously added words.
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+fitsA          :: Grid -> String -> Point -> Bool
+fitsA g s (x,y) = if (x + length s) <= (length . head) g then
+                  foldr (&&) True (map (\c -> fst c == snd c || snd c == '#') 
+                        (zip s (take (length s) (drop x (g !! y)))))
+                  else False
+
+fitsD          :: Grid -> String -> Point -> Bool
+fitsD g s (x,y) = if (y + length s) <= length g then
+                  foldr (&&) True (map (\c -> fst c == snd c || snd c == '#') 
+                        (zip s (map (!!x) (take (length s) (drop y g)))))
+                  else False
+
+fitsSW1          :: Grid -> String -> Point -> Bool
+fitsSW1 g s (x,y) = if (x + length s) <= (length . head) g 
+                    && (y + length s) <= length g then 
+                    foldr (&&) True (map (\c -> fst c == snd c || snd c == '#') 
+                        (zip s (map 
+                                (\c -> (g !! snd c) !! (x + (snd c) - y)) 
+                                (zip s [y..]))))
+                    else False
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    Again we can derive the other five functions by using reverse. All of these
+    functions work in a very similar way to the insert functions with a few
+    changes. If the words go beyond the bounds of the board it returns False.
+    Also, if any of the characters in the grid are not '\#', or the character
+    we are trying to place, False is returned to prevent clobbering the other
+    words. Otherwise, True is returned.
+
+\section*{Randomness}
+    \ \ \ \ \ One of the requirements that was set for this project is that it
+    should create random word searches based off of the input. One solution to
+    creating an algorithm to solve this poblem is to randomly place the words
+    one by one. If the word fits in a randomly chosen place then we add it to
+    the grid. Otherwise, we try to add it at another random location.
+
+    \vspace{12pt}
+
+    There is one big downside to this method however. It is possible that the
+    algorithm will continue to randomly choose locations where the word that
+    is being inserted does not fit. If we choose an appropriate grid size the
+    probability of the algorithm running forever (or even long amounts of time)
+    becomes very low. This algorithm will be very similar to so called 'balls
+    and bins' problems. A famous example of this type of problem is the called
+    the birthday problem. Given a room of $n$ people what is the probability 
+    that at least two of the people share a birthday? If we think of the days
+    of the year as bins, and birthdays as balls, what we want to know is the
+    probability that there are two or more balls in any one bin.
+
+    \vspace{12pt}
+
+    We know that there are 366 possible birthdays (don't forget leap years). 
+    So, we can calculate the number of ways $n$ dates can be chosen from 366.
+    We can assign these birthdays to the $n$ people in $n!$ ways. So, there
+    are $ {{366} \choose {n}} n!$ ways for everyone to have different birthdays.
+    We can also calculate the total number of possible birthday configurations
+    as $366^{n}$. So, the probability, p, that at least two people share a
+    birthday is:
+
+    \vspace{12pt}
+    \begin{center}
+        $ p = {{{366 \choose n} n!} \over {366^{n}}} $
+    \end{center}
+
+    \vspace{12pt}
+
+    If we think about our word search algorithm as a 'balls and bins' problem,
+    then we can see that we can lower the probability of character collisions
+    by increasing the size of the board. We must only think of the positions in
+    the grid as the bins and the letters in the words as balls. In a future
+    revision of this project it would be good to find a good probability that 
+    meets the run time constraints of the users, and warn users if the grid
+    size they request is too small. \cite{prob}
+
+    \vspace{12pt}
+
+    Haskell has a module for doing tasks that require randomness. The module is
+    especially interesting, because there are IO and non-IO functions for many
+    tasks. As Haskell is a pure functional language the non-IO functions must
+    be seeded. While either method (seeded or un-seeded) will work fine for
+    this program I decided to go with the un-seeded IO functions.
+
+    \vspace{12pt}
+
+    The most straight forward function from the System.IO module is randomRIO.
+    randomRIO is defined as:
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+randomRIO :: (a, a) -> IO a
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    This function takes a pair of a similar type, and then randomly returns
+    a value between the first element of the pair and the second element of the
+    pair. Also, note that randomRIO returns an IO a. So, we will need to keep
+    this in mind as we create functions that utilize the randomRIO function.
+
+    \vspace{12pt}
+
+    One function that we will need to write is a function that can randomly
+    pick an element from a given list. This can be done by using randomRIO to
+    get a random index of one of the elements. Then, we can take just that one
+    element from the list.
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+pick   :: [a] -> IO a
+pick xs = randomRIO (0, (length xs - 1)) >>= return . (xs !!)
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    Now, we can pick elements from a list. One list we will want to pick
+    elements from is a list of all of the ways to insert a word. These
+    elements should be paired with their respective fit functions.
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+waysToInsert = [(fitsA, insertAWord), (fitsAR, insertAWordR),
+                (fitsD, insertDWord), (fitsDR, insertDWordR),
+                (fitsSW1, insertSWWord1), (fitsSW1R, insertSWWord1R),
+                (fitsSW2, insertSWWord2), (fitsSW2R, insertSWWord2R)]
+
+randomWay  = pick waysToInsert
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    Now, everything is ready to write the function to insert a word into a 
+    random place (in a random direction) in a given grid. To do this we use
+    randomWay. Then, we use randomRIO to select the x and y values for the 
+    point of insertion. Finally, we check to see if the word will fit, and if
+    it does then we insert it. If the word does not fit we recursively call
+    insert word and try a new random way to add the word.
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+insertWord    :: Grid -> String -> IO Grid
+insertWord grid w = do method <- randomWay
+                       x <- randomRIO (0, length (head grid) - 1)
+                       y <- randomRIO (0, length grid - 1)
+                       if (fst method) grid w (x,y)
+                         then return $ ((snd method) grid w (x,y))
+                         else insertWord grid w
+
+insertWords         :: Grid -> [String] -> IO Grid
+insertWords g []     = return g
+insertWords g (x:xs) = do newGrid <- insertWord g x
+                          insertWords newGrid xs
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    We can now create a randomized grid with the words we have selected.
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+*Wordsearch> let testWords = ["ONE", "TWO", "THREE"]
+*Wordsearch> insertWords (emptyGrid 5 5) testWords >>= displayGrid
+####T
+###HE
+##RN#
+#EOWT
+E####
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    This is starting to look like a word search. In fact this is a great way
+    to produce solutions for word searches. These Grids with only letters from
+    the inputed words can be zipped with the completed Grids to make a pair
+    for printing puzzles and keys.
+
+    \vspace{12pt}
+
+    There is still one more task that must be completed before the puzzles can
+    be generated. All of the '\#' must be replaced by random letters. We don't
+    want completely random characters, because one of the features of good 
+    word searches is having partial substrings of the words mixed amongst the
+    characters. Ideally, the non-word characters will appear at the same
+    frequency they do in the input words. We can use pick to select a random
+    character uniformly from the set of characters that make up the input
+    words.
+
+    \vspace{12pt}
+
+    \begin{lstlisting}
+replaceHash     :: [String] -> Char -> IO Char
+replaceHash ws c = if c == '#' then do r <- pick (concat ws)
+                                       return r
+                               else return c
+
+fillLine     :: [String] -> String -> IO String
+fillLine ws l = mapM (replaceHash ws) l
+
+fillGrid     :: [String] -> Grid -> IO Grid
+fillGrid ws g = mapM (fillLine ws) g
+    \end{lstlisting}
+
+    \vspace{12pt}
+
+    This collection of functions will use the mapM function to operate on each
+    character. The replaceHash function checks if each individual position in
+    the grid is empty (denoted by the '\#' symbol). It then uses pick to 
+    uniformly select one of the characters from the input words and relplace
+    the hash. We now have a proper word search.
+
+    \vspace{12pt}
+
+    We will need to alter displayGrid slightly to fill and show our generated
+    word searches.
+
+    \vspace {12pt}
+
+    \begin{lstlisting}
+displayGrid  :: IO Grid -> [String] -> IO ()
+displayGrid g ws = do grid <- g
+                      filledGrid <- fillGrid ws grid
+                      putStr (unlines filledGrid)
+    \end{lstlisting}
+
+    \pagebreak
+
+    \begin{lstlisting}
+*Wordsearch> let ws = ["ONE", "TWO", "THREE"]
+*Wordsearch> displayGrid (insertWords (emptyGrid 5 5) ws) ws
+TOHET
+OHNHO
+NRRNT
+EERTN
+EWTWO
+    \end{lstlisting}
+
+
+\section*{IO}
+
+\chapter*{Observations}
+\section*{Functional Programming}
+\section*{Evaluation of This Implementation}
+\section*{Word Puzzles Revisited}
+
+\begin{thebibliography}{9}
+  % type bibliography here
+    \bibitem{learnyou}
+        Miran Lipovaca.
+        \newblock {\em Learn You a Haskell for Great Good!}
+        \newblock No Starch Press, San Francisco, CA, 2011.
+
+    \bibitem{prob}
+        Michael Mitzenmacher and Eli Upfal
+        \newblock {\em Probability and Computing} \\
+        \newblock Cambridge University Press, New York, NY, 2005.
+
+    \bibitem{rand}
+        \newblock {\em System.Random} \\
+        \newblock \url{http://www.haskell.org/ghc/docs/6.12.1/html/libraries/random-1.0.0.2/System-Random.html}, March 10, 2012.
+
+    \bibitem{justws}
+        \newblock {\em The Histroy of Word Search}
+        \newblock JustWordSearch.com, March 10, 2012.
+
+    \bibitem{wiki}
+        \newblock {\em Word search}
+        \newblock \url{http://en.wikipedia.org/wiki/Word_search}, March 10, 2012.
+
+\end{thebibliography}
+
+
+\end{document}
