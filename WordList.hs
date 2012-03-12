@@ -1,7 +1,8 @@
-{- wordscore.hs
- - by Thomas Schreiber
+{- WordList.hs
+ - Copyright 2012 Thomas Schreiber <ubiquill@gmail.com>
  - 
- - Takes a list of strings and scores the intersection value of the words.
+ - Takes a file containing words and creates a wordlist for adding to a word
+ - search.
 -}
 
 module WordList where
@@ -10,6 +11,12 @@ import Data.List (sortBy)
 import Data.Ord (comparing)
 import Data.Char (isLetter)
 import Char (toUpper)
+import System.IO
+import Control.Monad
+
+wordList  :: FilePath -> IO ([String], [String])
+wordList f = do ws <- getWords f
+                return (prepare ws, ws)
 
 scoreWord          :: String -> String -> Integer
 scoreWord [] ss     = 0
@@ -33,3 +40,6 @@ cleanWords  = allCaps . sanatize
 
 prepare :: [String] -> [String]
 prepare  = rankWords . cleanWords
+
+getWords :: FilePath -> IO [String]
+getWords  = (liftM lines . readFile)

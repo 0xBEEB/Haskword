@@ -1,0 +1,59 @@
+
+ \begin{theglossary} 
+
+    \makeatletter\scan@allowedfalse
+
+  \item 1.3\efill 
+ \subitem General:\ First public release.\pfill 1
+  \item 1.4\efill 
+ \subitem \verb*+\Puzzle@Box@@normal+:\ Minor bug fix. Using \texttt  {\char `\\ifx} instead of \texttt  {\char `\\if}.\pfill 
+		18
+    \subitem \verb*+\Puzzle@Box@@solution+:\ Minor bug fix. Using \texttt  {\char `\\ifx} instead of \texttt  {\char `\\if}.\pfill 
+		19
+  \item 1.5\efill 
+ \subitem \verb*+\Puzzle@Box@@normal+:\ Reimplemented to cope with two optional arguments.\pfill 18
+    \subitem \verb*+\Puzzle@Box@@normal@+:\ Extracted from \texttt  {\char `\\Puzzle@Box@@normal}.\pfill 18
+    \subitem \verb*+\Puzzle@Box@@solution+:\ Reimplemented to cope with two optional arguments.\pfill 19
+    \subitem \verb*+\Puzzle@Box@@solution@+:\ Reimplemented to cope with two optional arguments.\pfill 19
+    \subitem \verb*+\Puzzle@Cell@@*+:\ New\pfill 22
+    \subitem \verb*+\Puzzle@Cell@@,+:\ New\pfill 23
+    \subitem \verb*+\Puzzle@Cell@@.+:\ New\pfill 22
+    \subitem \verb*+\Puzzle@Cell@@/+:\ New\pfill 23
+    \subitem \verb*+\Puzzle@Cell@@B+:\ New\pfill 21
+    \subitem \verb*+\Puzzle@Cell@@b+:\ New\pfill 21
+    \subitem \verb*+\Puzzle@Cell@@f+:\ New\pfill 22
+    \subitem \verb*+\Puzzle@Cell@@L+:\ New\pfill 21
+    \subitem \verb*+\Puzzle@Cell@@l+:\ New\pfill 21
+    \subitem \verb*+\Puzzle@Cell@@O+:\ New\pfill 22
+    \subitem \verb*+\Puzzle@Cell@@o+:\ New\pfill 22
+    \subitem \verb*+\Puzzle@Cell@@R+:\ New\pfill 22
+    \subitem \verb*+\Puzzle@Cell@@r+:\ New\pfill 22
+    \subitem \verb*+\Puzzle@Cell@@T+:\ New\pfill 21
+    \subitem \verb*+\Puzzle@Cell@@t+:\ New\pfill 21
+    \subitem \verb*+\Puzzle@Cell@Loop+:\ New\pfill 19
+    \subitem \verb*+\PuzzleDefineCell+:\ New\pfill 20
+    \subitem \verb*+\PuzzleDefineColorCell+:\ New\pfill 20
+    \subitem \verb*+\PuzzleLineThickness+:\ New\pfill 17
+    \subitem \verb*+\PuzzlePost+:\ New\pfill 18
+    \subitem \verb*+\PuzzlePre+:\ New\pfill 17
+    \subitem \verb*+\PuzzlePutNumber+:\ New\pfill 19
+  \item 1.6\efill 
+ \subitem General:\ Several style options defined\pfill 28
+  \item 1.7\efill 
+ \subitem \verb*+\Puzzle@Box@@normal@+:\ \texttt  {\char `\\PuzzleContent} added to transport the letter to the formatting macro.\pfill 
+		18
+    \subitem \verb*+\Puzzle@Cell@@S+:\ New\pfill 22
+  \item 1.8\efill 
+ \subitem \verb*+Kakuro+:\ New\pfill 27, 28
+    \subitem \verb*+\Kakuro@always+:\ New\pfill 27
+    \subitem \verb*+\Kakuro@cell+:\ New\pfill 27
+    \subitem \verb*+\Kakuro@empty+:\ New\pfill 27
+    \subitem \verb*+\Kakuro@HINT+:\ New\pfill 27
+    \subitem \verb*+\Kakuro@hint+:\ New\pfill 27
+    \subitem \verb*+\Kakuro@nohint+:\ New\pfill 27
+    \subitem \verb*+\KakuroHintType+:\ New\pfill 28
+    \subitem \verb*+\KakuroNumberFont+:\ New\pfill 26
+    \subitem \verb*+\SudokuLinethickness+:\ New\pfill 26
+    \subitem \verb*+Sudoku+:\ New\pfill 26
+
+ \end{theglossary}

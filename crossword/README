@@ -1,0 +1,88 @@
+
+			     cwpuzzle.sty
+				  -
+     a LaTeX package for typesetting crossword puzzles and more
+
+			   Gerd Neugebauer
+
+
+CROSSWORD PUZZLES
+
+Since I know only of  one additional package for typesetting crossword
+puzzles on  CTAN --  named crosswrd.sty --  I will compare  it against
+this  package  to  show  the  advantages  and  disadvantages  of  both
+packages.
+
+I  have developed  cwpuzzle.sty because I  needed to  typeset a puzzle
+which required   more features than  those  provided by crosswrd.  The
+feature I was missing was the inclusion of  rectangular regions in the
+puzzles  containing  ads or  other  texts not  directly related to the
+characters to be filled in.
+
+I have generalized this  requirement by allowing  arbitrary rectangles
+to be left free. Thus it is possible to typeset  puzzles which have no
+rectangular border (See the documentation for examples).
+
+Another idea was to have different types of puzzles generated from the
+same source:
+
+- The  classical puzzle contains numbers for  the  words and clues for
+  the words to be filled in.
+
+- The numbered  puzzle contains numbers  in each  cell where identical
+  numbers represent  identical letters. The goal is  to find out which
+  number corresponds to which letter.
+
+- The fill-in type of  puzzle consists of a grid  and a list of words.
+  The goal is to place all words in the grid.
+
+crosswrd supports the first type of puzzle only. cwpuzzle supports all
+of them.
+
+The input for both packages is  completely different. crosswrd assumes
+that a user uses this package to develop a puzzle. Thus it is tailored
+towards a human   user.    It checks  for  consistency and    requires
+non-redundant input.  (As a unpleasant side effect fragile macros used
+in clues have to be protected)
+
+cwpuzzle   needs  some  redundancy  in  the   input  for the   sake of
+flexibility. But  it seems quite natural to  specify  the frame of the
+puzzle  and the clues separately. Especially  for those types where no
+clues are needed at all.
+
+cwpuzzle currently assumes that words  are terminated by a black block
+(or the border of the puzzle). crosswrd also supports also the variant
+where words are terminated  by a thicker   border. This might also  be
+incorporated into a future release of cwpuzzle.
+
+In  cwpuzzle it  is also  possible  to  specify whether the  crossword
+puzzle     or it's   solution should   be   produced   (from the  same
+source). Thus it  is possible to include the  puzzle in one issue of a
+journal  and  the solution  into another,  or to  typeset the solution
+several pages after the puzzle.
+
+cwpuzzle provides a larger  number of options and  hooks which  can be
+used to customize the result. E.g it is possible to modify the size of
+the boxes or the  fonts used as  well  as the appearance of  graphical
+elements like the black blocks.
+
+
+MORE CELL-BASED PUZZLES
+
+In addition to crossword puzzles Sudoku and Kakuro are supported. They
+are also grid-based. Thus it was easy to facilityte the infrastructure
+already in place for them.
+
+There  is a  package  for sudoku  on  CTAN. But  it  does not  support
+solutions yet.
+
+
+LOCATION
+
+cwpuzzle is located in the CTAN directory
+
+	tex-archive/macros/latex/contrib/gene/crossword
+
+Run  tex on  cwpuzzle.ins to  produce  the package  and (pdf)latex  on
+cwpuzzle.dtx to  get the documentation  (or the Makefile to  do both).
+Per default the Makefile produces the documentation as PDF.

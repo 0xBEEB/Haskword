@@ -1,0 +1,214 @@
+
+ \begin{theindex} 
+ \makeatletter\scan@allowedfalse
+{\bfseries\hfil Symbols\hfil}\nopagebreak
+
+  \item \verb*+\|+\pfill 12, 23, 222, 260, 311, 313
+
+  \indexspace
+{\bfseries\hfil B\hfil}\nopagebreak
+
+  \item \verb*+\blacktriangledown+\pfill 299
+  \item \verb*+\blacktriangleright+\pfill 304
+
+  \indexspace
+{\bfseries\hfil C\hfil}\nopagebreak
+
+  \item \verb*+\Clue+\pfill \usage{9}, 193, 205
+  \item \verb*+\colorbox+\pfill 122
+
+  \indexspace
+{\bfseries\hfil D\hfil}\nopagebreak
+
+  \item \verb*+\DeclareOption+\pfill 321, 322, 324, 326, 328, 330, 332, 
+		336
+  \item \verb*+\DefineColorCell+\pfill \usage{8}
+
+  \indexspace
+{\bfseries\hfil E\hfil}\nopagebreak
+
+  \item \verb*+\empty+\pfill 297, 302
+  \item \verb*+\endKakuro+\pfill 318
+  \item \verb*+\endPuzzle@Clues@@normal+\pfill 253
+  \item \verb*+\endPuzzle@Clues@@solution+\pfill 245
+  \item \verb*+\endPuzzle@Words@@normal+\pfill 255
+  \item \verb*+\endPuzzle@Words@@solution+\pfill 247
+  \item \verb*+\endPuzzleClues+\pfill 245, 253
+  \item \verb*+\endPuzzleWords+\pfill 247, 255
+  \item \verb*+\endSudoku+\pfill 267
+  \item environments:\efill 
+ \subitem {\ttfamily Kakuro}\pfill \usage{12}, \main{310}
+    \subitem {\ttfamily Puzzle}\pfill \usage{5}, \main{22}
+    \subitem {\ttfamily Puzzle@Clues@@normal}\pfill \main{192}
+    \subitem {\ttfamily Puzzle@Clues@@solution}\pfill \main{204}
+    \subitem {\ttfamily Puzzle@Words@@normal}\pfill \main{208}
+    \subitem {\ttfamily Puzzle@Words@@solution}\pfill \main{212}
+    \subitem {\ttfamily PuzzleClues}\pfill \usage{9}
+    \subitem {\ttfamily PuzzleWords}\pfill \usage{9}
+    \subitem {\ttfamily Sudoku}\pfill \usage{11}, \main{259}
+  \item \verb*+\expandafter+\pfill 79, 170
+
+  \indexspace
+{\bfseries\hfil F\hfil}\nopagebreak
+
+  \item \verb*+\fboxsep+\pfill 121
+  \item \verb*+\Frame+\pfill \usage{8}, 15, 19
+
+  \indexspace
+{\bfseries\hfil I\hfil}\nopagebreak
+
+  \item \verb*+\ifPuzzle@SolutionNumbered+\pfill 109, 257
+
+  \indexspace
+{\bfseries\hfil K\hfil}\nopagebreak
+
+  \item \verb*+\Kakuro+\pfill 312
+  \item {\ttfamily Kakuro} (environment)\pfill \usage{12}, \main{310}
+  \item \verb*+\Kakuro@always+\pfill 287, \main{293}
+  \item \verb*+\Kakuro@cell+\pfill \main{284}, 315
+  \item \verb*+\Kakuro@empty+\pfill 288, \main{294}
+  \item \verb*+\Kakuro@HINT+\pfill 243, 251, 286, \main{309}
+  \item \verb*+\Kakuro@hint+\pfill 251, \main{295}, 309
+  \item \verb*+\Kakuro@nohint+\pfill 243, \main{307}
+  \item \verb*+\KakuroHintType+\pfill 306, \main{319}
+  \item \verb*+\KakuroHintTypeKakuroNumberFont+\pfill \usage{15}
+  \item \verb*+\KakuroNumberFont+\pfill \usage{15}, \main{283}, 298, 
+		303
+
+  \indexspace
+{\bfseries\hfil L\hfil}\nopagebreak
+
+  \item \verb*+\line+\pfill 129, 135, 139, 144, 149, 153, 159, 164, 184, 
+		188
+  \item \verb*+\linethickness+\pfill 26, 125, 277
+
+  \indexspace
+{\bfseries\hfil M\hfil}\nopagebreak
+
+  \item \verb*+\multiput+\pfill 268--276
+
+  \indexspace
+{\bfseries\hfil N\hfil}\nopagebreak
+
+  \item \verb*+\next+\pfill 225, 232, 235, 264, 285--289, 291
+
+  \indexspace
+{\bfseries\hfil O\hfil}\nopagebreak
+
+  \item \verb*+\oval+\pfill 174, 178
+
+  \indexspace
+{\bfseries\hfil P\hfil}\nopagebreak
+
+  \item \verb*+\parbox+\pfill 298, 303
+  \item \verb*+\PPa+\pfill 263, 264
+  \item \verb*+\ProcessOptions+\pfill 340
+  \item {\ttfamily Puzzle} (environment)\pfill \usage{5}, \main{22}
+  \item \verb*+\Puzzle@@normal+\pfill 17
+  \item \verb*+\Puzzle@@solution+\pfill 13
+  \item \verb*+\Puzzle@Box@@normal+\pfill 18, 29, \main{46}
+  \item \verb*+\Puzzle@Box@@normal@+\pfill 48, \main{50}
+  \item \verb*+\Puzzle@Box@@solution+\pfill 14, \main{88}
+  \item \verb*+\Puzzle@Box@@solution@+\pfill 90, \main{92}
+  \item \verb*+\Puzzle@Cell@@*+\pfill \main{180}
+  \item \verb*+\Puzzle@Cell@@,+\pfill \main{186}
+  \item \verb*+\Puzzle@Cell@@.+\pfill \main{172}
+  \item \verb*+\Puzzle@Cell@@/+\pfill \main{183}
+  \item \verb*+\Puzzle@Cell@@B+\pfill \main{137}
+  \item \verb*+\Puzzle@Cell@@b+\pfill \main{141}
+  \item \verb*+\Puzzle@Cell@@f+\pfill \main{166}
+  \item \verb*+\Puzzle@Cell@@L+\pfill \main{151}
+  \item \verb*+\Puzzle@Cell@@l+\pfill \main{146}
+  \item \verb*+\Puzzle@Cell@@O+\pfill \main{173}
+  \item \verb*+\Puzzle@Cell@@o+\pfill \main{176}
+  \item \verb*+\Puzzle@Cell@@R+\pfill \main{161}
+  \item \verb*+\Puzzle@Cell@@r+\pfill \main{155}
+  \item \verb*+\Puzzle@Cell@@S+\pfill \main{169}
+  \item \verb*+\Puzzle@Cell@@T+\pfill \main{126}
+  \item \verb*+\Puzzle@Cell@@t+\pfill \main{131}
+  \item \verb*+\Puzzle@Cell@Loop+\pfill 60, 62, \main{74}, 101, 103
+  \item \verb*+\Puzzle@Clue@@normal+\pfill \main{190}, 193
+  \item \verb*+\Puzzle@Clue@@solution+\pfill \main{191}, 205
+  \item \verb*+\Puzzle@Clues@@normal+\pfill 252
+  \item {\ttfamily Puzzle@Clues@@normal} (environment)\pfill \main{192}
+  \item \verb*+\Puzzle@Clues@@solution+\pfill 244
+  \item {\ttfamily Puzzle@Clues@@solution} (environment)\pfill 
+		\main{204}
+  \item \verb*+\Puzzle@Frame@@normal+\pfill 19, \main{41}
+  \item \verb*+\Puzzle@Frame@@solution+\pfill 15, \main{44}
+  \item \verb*+\Puzzle@Numbers+\pfill 220, \main{221}
+  \item \verb*+\Puzzle@pipe+\pfill 262--264, 285, 289, 293, 294, 306, 
+		308, 314
+  \item \verb*+\Puzzle@SolutionNumberedfalse+\pfill 258
+  \item \verb*+\Puzzle@SolutionNumberedtrue+\pfill 321
+  \item \verb*+\Puzzle@tmp+\pfill 52, 53, 57, 59, 75--77, 84, 86, 
+		93, 94, 98, 100, 107, 108
+  \item \verb*+\Puzzle@tmp@+\pfill 47, 65, 66, 89, 110
+  \item \verb*+\Puzzle@TYPE+\pfill 24, 216, \main{240}, 248, 256
+  \item \verb*+\Puzzle@Words@@normal+\pfill 254
+  \item {\ttfamily Puzzle@Words@@normal} (environment)\pfill \main{208}
+  \item \verb*+\Puzzle@Words@@solution+\pfill 246
+  \item {\ttfamily Puzzle@Words@@solution} (environment)\pfill 
+		\main{212}
+  \item \verb*+\Puzzle@X+\pfill 9, 54, 66, 68, 82, 95, 104, 110, 113, 
+		218, 228, 229, 233, 298, 303
+  \item \verb*+\Puzzle@Y+\pfill 10, 27, 55, 66, 82, 96, 104, 110, 217, 
+		298, 303
+  \item \verb*+\PuzzleBlackBox+\pfill \usage{14}, \main{45}, 181
+  \item \verb*+\PuzzleClueFont+\pfill \main{5}, \usage{14}, 195
+  \item \verb*+\PuzzleCluePost+\pfill \usage{15}, 196, \main{201}, 325
+  \item \verb*+\PuzzleCluePre+\pfill \usage{15}, 194, \main{197}, 324
+  \item \verb*+\PuzzleClues+\pfill 244, 252
+  \item {\ttfamily PuzzleClues} (environment)\pfill \usage{9}
+  \item \verb*+\PuzzleContent+\pfill \usage{15}, 51, 170
+  \item \verb*+\PuzzleDefineCell+\pfill \usage{7}, \main{116}, 126, 131, 
+		137, 141, 146, 151, 155, 161, 166, 169, 172, 173, 176, 
+		180, 183, 186
+  \item \verb*+\PuzzleDefineColorCell+\pfill \main{119}
+  \item \verb*+\PuzzleFont+\pfill \main{6}, \usage{14}, 327, 329, 331
+  \item \verb*+\PuzzleHook+\pfill \main{8}, \usage{14}, 31
+  \item \verb*+\PuzzleLetters+\pfill \usage{9}, \main{239}
+  \item \verb*+\PuzzleLettersText+\pfill \usage{14}, \main{238}, 239, 
+		334, 338
+  \item \verb*+\PuzzleLineThickness+\pfill \usage{15}, 26, \main{34}
+  \item \verb*+\PuzzleNumberFont+\pfill \main{7}, \usage{14}, 72
+  \item \verb*+\PuzzleNumbers+\pfill \usage{9}, \main{215}
+  \item \verb*+\PuzzlePost+\pfill \usage{15}, 32, \main{38}, 323
+  \item \verb*+\PuzzlePre+\pfill \usage{15}, 22, \main{35}, 322
+  \item \verb*+\PuzzlePutNumber+\pfill \usage{14}, 66, \main{71}, 110
+  \item \verb*+\PuzzleSolution+\pfill \usage{14}, \main{241}
+  \item \verb*+\PuzzleThickine+\pfill \main{125}
+  \item \verb*+\PuzzleThickline+\pfill 125, 128, 134, 138, 143, 148, 
+		152, 158, 163
+  \item \verb*+\PuzzleUnitlength+\pfill 3, 4, \usage{13}, 25, 45, 219, 
+		326, 328, 330
+  \item \verb*+\PuzzleUnsolved+\pfill \usage{14}, \main{250}, 320
+  \item \verb*+\PuzzleWords+\pfill 246, 254
+  \item {\ttfamily PuzzleWords} (environment)\pfill \usage{9}
+  \item \verb*+\PuzzleWordsText+\pfill \usage{14}, \main{207}, 209, 333, 
+		337
+
+  \indexspace
+{\bfseries\hfil S\hfil}\nopagebreak
+
+  \item \verb*+\Sudoku+\pfill 261
+  \item {\ttfamily Sudoku} (environment)\pfill \usage{11}, \main{259}
+  \item \verb*+\SudokuLinethickness+\pfill \usage{15}, 277, \main{282}
+
+  \indexspace
+{\bfseries\hfil T\hfil}\nopagebreak
+
+  \item \verb*+\typeout+\pfill 80
+
+  \indexspace
+{\bfseries\hfil W\hfil}\nopagebreak
+
+  \item \verb*+\Word+\pfill \usage{10}, 210, 213
+
+  \indexspace
+{\bfseries\hfil X\hfil}\nopagebreak
+
+  \item \verb*+\X+\pfill 228, 230
+  \item \verb*+\x+\pfill 296, 297, 301, 302
+
+ \end{theindex}

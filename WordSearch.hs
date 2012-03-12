@@ -1,7 +1,7 @@
-{- wordscore.hs
- - by Thomas Schreiber
+{- WordSearch.hs
+ - Copyright 2012 Thomas Schreiber <ubiquill@gmail.com>
  - 
- - Takes a list of strings and scores the intersection value of the words.
+ - Prepares lists of words for addition to word search puzzles.
 -}
 
 module WordSearch where
@@ -27,6 +27,9 @@ displayGrid g ws = do grid <- g
                       putStrLn ""
                       putStrLn ("+++++")
                       putStr (unlines grid)
+
+getPuzzle g ws = do grid <- g
+                    fillGrid ws grid
 
 replaceHash     :: [String] -> Char -> IO Char
 replaceHash ws c = if c == '#' then do r <- pick (concat ws)
