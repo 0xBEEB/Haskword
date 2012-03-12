@@ -1,4 +1,4 @@
-Copyright (c) 2012 Thomas Schreiber <ubiquill@gmail.com
+Copyright (c) 2012 Thomas Schreiber <ubiquill@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of 
 this software and associated documentation files (the "Software"), to deal in 
@@ -25,4 +25,7 @@ Haskword is a word search generator written in Haskell. Haskword can produce
 complex word searches in a beautiful TeX document instantly.
 
 To install Haskword type:
-    make
+    make haskword
+
+To generate a pdf of the report type:
+    make report
