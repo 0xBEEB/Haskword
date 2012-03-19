@@ -29,6 +29,9 @@ rankWords    :: [String] -> [String]
 rankWords  ss = reverse . map snd $ 
                   sortBy (comparing fst) (zip (listScore ss) ss)
 
+getWords :: FilePath -> IO [String]
+getWords  = (liftM lines . readFile)
+
 allCaps :: [String] -> [String]
 allCaps  = (map . map) toUpper
 
@@ -40,6 +43,3 @@ cleanWords  = allCaps . sanatize
 
 prepare :: [String] -> [String]
 prepare  = rankWords . cleanWords
-
-getWords :: FilePath -> IO [String]
-getWords  = (liftM lines . readFile)

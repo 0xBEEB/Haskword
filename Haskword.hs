@@ -19,7 +19,7 @@ puzzle f s x y = do ws <- wordList f
                                       (fst ws))
 
 puzzle1 = puzzle "puzzle1.txt" "puzzle1.tex" 10 10
-puzzle2 = puzzle "puzzle2.txt" "puzzle2.tex" 22 22
+puzzle2 = puzzle "puzzle2.txt" "puzzle2.tex" 20 20
 
 main = do puzzle1
           puzzle2
